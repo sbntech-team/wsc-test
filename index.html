@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WSC TEST</title>
+
+    <script src="./questions.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+</head>
+
+<body>
+    <main id="app">
+        <section class="section">
+            <form class="container">
+                <h1 class="title">Workplace Safety Inspection Checklist</h1>
+                <br />
+                <b-collapse class="card" animation="slide" v-for="(section, index) in questions" :key="index"
+                    :open="isOpen == index" @open="isOpen = index">
+                    <div slot="trigger" slot-scope="props" class="card-header" role="button">
+                        <p class="card-header-title">
+                            {{ section.name }}
+                        </p>
+                        <a class="card-header-icon">
+                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
+                            </b-icon>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">
+                            <div v-for="(question, qindex) in section.questions" :key="qindex">
+                                <b>{{`${question.letter})  ${question.name}`}}</b>
+                                <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
+                                    :key="sindex">
+                                    <p>{{`${sindex+1}${question.letter}) ${subq.qn}`}}</p>
+                                    <div class="block">
+                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
+                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                                    </div>
+                                    <b-field label="Recommendation/Corrective Actions">
+                                        <b-input v-model="subq.actions"></b-input>
+                                    </b-field>
+                                    <b-field label="Action By">
+                                        <b-input v-model="subq.by"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </b-collapse>
+            </form>
+
+        </section>
+    </main>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    isOpen: 0,
+                    questions: questionsObj
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
