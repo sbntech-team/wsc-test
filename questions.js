@@ -432,4 +432,523 @@ const questionsObj = [
       },
     ],
   },
+  {
+    name: "Offices",
+    questions: [
+      {
+        name:
+          "General Condition (i.e. Is the area or room generally kept tidy, clean regularly & is well maintained?)",
+        letter: "a",
+        subQuestions: [
+          {
+            qn: "Walls – e.g. look out for stains, cracks",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Roads / Floors / Drains – e.g. cracks, choking drain",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Floors / Drain covers – e.g. broken or absence",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Ceilings / Ceiling boards e.g. pooling of water, stains",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Ventilation ducts / vents (includes air-conditioning systems) – e.g. dirty with dust, condensation present",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Any overhead hazards? E.g. wires, trees, lamp post, etc.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name:
+          "Indoor Air Quality (i.e. ventilation condition of the room) [Humidity – Equal or less than 70% Temperature – 22.5 to 25.5 degrees Celsius]",
+        letter: "b",
+        subQuestions: [
+          {
+            qn: "Any musty or any other unpleasant smells?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Is the room hot and stuffy?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name:
+          "Lighting (i.e. adequate illumination, free from glare and emergency lightings)",
+        letter: "c",
+        subQuestions: [
+          {
+            qn:
+              "Lighting adequate lighting for the required occupation base on qualitative assessment? (If not, refer to OH for quantitative assessment)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are emergency lightings operable? (include the EXIT signs)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are warning signs easily seen with the lighting status?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Are the staffs free from glare / reflections / contrast? (Staff should not be sitting with his/her back or in front of the window as it can cause glare and reflections)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name:
+          "Noise (Acceptable ambient noise level: As a rule, if one has to shout to be heard, noise is above this acceptable limits)",
+        letter: "d",
+        subQuestions: [
+          {
+            qn: "Free from annoying noise – e.g. machinery, workshops etc.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Noise source controlled or uncontrolled?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Electrical Hazards",
+        letter: "e",
+        subQuestions: [
+          {
+            qn:
+              "Are all electrical appliances in good condition? (i.e. no frays, torn, broken, loose electrical leads or outlets)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Electrical appliances equipment inspected and maintained? (e.g. for common equipment appliances, they should come with the current electrical “safety” test tag, while unique electrical equipment should have inspection labels)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Is there safe distance between the liquids / chemicals / gases and electrical outlets of items?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are multiple plug adaptors used?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Staff / Operator",
+        letter: "f",
+        subQuestions: [
+          {
+            qn: "Attended relevant courses.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Familiar with the work process – especially the hazards he is exposed to.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Standing Order / Safety Operating Instructions",
+        letter: "g",
+        subQuestions: [
+          {
+            qn: "Available and displayed.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Important safety control measures included and reflected.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Emergency Preparedness (i.e. Fire / others)",
+        letter: "h",
+        subQuestions: [
+          {
+            qn: "Standing Orders (Fire / others) available.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Staff is familiar with the emergency procedures (Fire / others) and drills done.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Escape route, emergency activation device & firefighting equipment are displayed and not obstructed.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Fighting equipment and emergency activation device available, tagged & maintained as required (e.g. fire extinguishers – pressure is in green, nozzles are clean & dirt free, fully charged).",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "The emergency activation device should be tested at least once every month.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "'EXIT' sign available and illumination available.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Available first aid box (check for items’ expiry dates)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Available AED (inspect the monthly log sheet)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Ergonomics",
+        letter: "i",
+        subQuestions: [
+          {
+            qn:
+              "Are storage areas / cupboards / shelves at reachable heights or are there any means of safe access available?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Are there sufficient storage facilities? I.e. no improvised storage under benches or floors that could obstruct or cause potential trips and fall.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Are commonly used and heavy items stored between mid-thigh and shoulder height?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Are there any awkward postures to prevent repetitive and forceful actions injuries? Frequently used items (e.g. mouse, phone) should be within reach or within arm’s length",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Ideal height for the workstation is 65-75cm, with sufficient knee clearance and legroom.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "The chair should be adjustable with recommended height of 35-50cm, and adjustable backrest with an angle of approximately 100-120 degrees to reduce pressure on spine. Feet resting comfortably on the floor.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Armskotes",
+    questions: [
+      {
+        name:
+          "General Condition (i.e. Is the area or room generally kept tidy, clean regularly & is well maintained?)",
+        letter: "a",
+        subQuestions: [
+          {
+            qn: "Walls – e.g. look out for stains, cracks",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Roads / Floors / Drains – e.g. cracks, choking drain",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Floors / Drain covers – e.g. broken or absence",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Ceilings / Ceiling boards e.g. pooling of water, stains",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Ventilation ducts / vents (includes air-conditioning systems) – e.g. dirty with dust, condensation present",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Any overhead hazards? E.g. wires, trees, lamp post, etc.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name:
+          "Lighting (i.e. adequate illumination, free from glare and emergency lightings)",
+        letter: "b",
+        subQuestions: [
+          {
+            qn:
+              "Lighting adequate lighting for the required occupation base on qualitative assessment? (If not, refer to OH for quantitative assessment)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are emergency lightings operable? (include the EXIT signs)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are warning signs easily seen with the lighting status?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Are the staffs free from glare / reflections / contrast? (Staff should not be sitting with his/her back or in front of the window as it can cause glare and reflections)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Staff / Operator",
+        letter: "c",
+        subQuestions: [
+          {
+            qn: "Attended relevant courses.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Familiar with the work process – especially the hazards he is exposed to.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Standing Order / Safety Operating Instructions",
+        letter: "d",
+        subQuestions: [
+          {
+            qn: "Available and displayed.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Important safety control measures included and reflected.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Weapon Handling",
+        letter: "e",
+        subQuestions: [
+          {
+            qn:
+              "Is staff briefed daily / regularly on the safety aspect on handling of weapons?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Is there a separate rack for the unserviceable weapons?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are the unserviceable weapons tagged and documented?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Emergency Preparedness (i.e. Fire / others)",
+        letter: "f",
+        subQuestions: [
+          {
+            qn: "Standing Orders (Fire / others) available.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Staff is familiar with the emergency procedures (Fire / others) and drills done.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Escape route, emergency activation device & firefighting equipment are displayed and not obstructed.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Fighting equipment and emergency activation device available, tagged & maintained as required (e.g. fire extinguishers – pressure is in green, nozzles are clean & dirt free, fully charged).",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "The emergency activation device should be tested at least once every month.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "'EXIT' sign available and illumination available.",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+      {
+        name: "Electrical Hazards",
+        letter: "g",
+        subQuestions: [
+          {
+            qn:
+              "Are all electrical appliances in good condition? (i.e. no frays, torn, broken, loose electrical leads or outlets)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Electrical appliances equipment inspected and maintained? (e.g. for common equipment appliances, they should come with the current electrical “safety” test tag, while unique electrical equipment should have inspection labels)",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn:
+              "Is there safe distance between the liquids / chemicals / gases and electrical outlets of items?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+          {
+            qn: "Are multiple plug adaptors used?",
+            answerBool: null,
+            actions: null,
+            by: null,
+          },
+        ],
+      },
+    ],
+  },
 ];
