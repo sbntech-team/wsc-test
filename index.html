@@ -31,21 +31,25 @@
                     </div>
                     <div class="card-content">
                         <div class="content">
-                            <div v-for="(question, qindex) in section.questions" :key="qindex">
-                                <b>{{`${question.letter})  ${question.name}`}}</b>
-                                <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
-                                    :key="sindex">
-                                    <p>{{`${sindex+1}${question.letter}) ${subq.qn}`}}</p>
-                                    <div class="block">
-                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
-                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                            <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
+                                <div class="card-content">
+                                    <b>{{`${question.letter})  ${question.name}`}}</b>
+                                    <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
+                                        :key="sindex">
+                                        <p v-if="question.subQuestions.length > 1">
+                                            {{`${sindex+1}${question.letter}) ${subq.qn}`}}
+                                        </p>
+                                        <div class="block">
+                                            <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
+                                            <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                                        </div>
+                                        <b-field label="Recommendation/Corrective Actions">
+                                            <b-input v-model="subq.actions"></b-input>
+                                        </b-field>
+                                        <b-field label="Action By">
+                                            <b-input v-model="subq.by"></b-input>
+                                        </b-field>
                                     </div>
-                                    <b-field label="Recommendation/Corrective Actions">
-                                        <b-input v-model="subq.actions"></b-input>
-                                    </b-field>
-                                    <b-field label="Action By">
-                                        <b-input v-model="subq.by"></b-input>
-                                    </b-field>
                                 </div>
                             </div>
                         </div>
