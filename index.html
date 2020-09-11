@@ -33,7 +33,7 @@
                         <div class="content">
                             <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
                                 <div class="card-content">
-                                    <b>{{`${question.letter})  ${question.name}`}}</b>
+                                    <p class="has-text-weight-bold">{{`${question.letter})  ${question.name}`}}</p>
                                     <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
                                         :key="sindex">
                                         <p v-if="question.subQuestions.length > 1">
@@ -64,7 +64,7 @@
             el: "#app",
             data() {
                 return {
-                    isOpen: 0,
+                    isOpen: 1,
                     questions: questionsObj
                 }
             }
