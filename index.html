@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
 </head>
 
 <body>
@@ -18,7 +19,7 @@
             <form class="container">
                 <h1 class="title">Workplace Safety Inspection Checklist</h1>
                 <br />
-                <b-collapse class="card" animation="slide" v-for="(section, index) in questions" :key="index"
+                <!-- <b-collapse class="card" animation="slide" v-for="(section, index) in questions" :key="index"
                     :open="isOpen == index" @open="isOpen = index">
                     <div slot="trigger" slot-scope="props" class="card-header" role="button">
                         <p class="card-header-title">
@@ -54,9 +55,36 @@
                             </div>
                         </div>
                     </div>
-                </b-collapse>
+                </b-collapse> -->
+                <b-steps v-model="activeStep" mobile-mode="compact" @input="scrollToTop">
+                    <b-step-item :step="index + 1" :label="section.name" clickable v-for="(section, index) in questions"
+                        :key="index">
+                        <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
+                            <div class="card-content">
+                                <p class="has-text-weight-bold">{{`${question.letter})  ${question.name}`}}</p>
+                                <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
+                                    :key="sindex">
+                                    <p v-if="question.subQuestions.length > 1">
+                                        {{`${sindex+1}${question.letter}) ${subq.qn}`}}
+                                    </p>
+                                    <div class="block">
+                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
+                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                                    </div>
+                                    <b-field label="Recommendation/Corrective Actions">
+                                        <b-input v-model="subq.actions"></b-input>
+                                    </b-field>
+                                    <b-field label="Action By">
+                                        <b-input v-model="subq.by"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                        </div>
+                    </b-step-item>
+                </b-steps>
+                <br />
+                <b-button type="is-success" expanded v-if="canSubmit">Submit</b-button>
             </form>
-
         </section>
     </main>
     <script>
@@ -64,10 +92,41 @@
             el: "#app",
             data() {
                 return {
-                    isOpen: 1,
+                    activeStep: 0,
                     questions: questionsObj
                 }
-            }
+            },
+            computed: {
+                canSubmit() {
+                    let retBool = true;
+                    for (const section of this.questions) {
+                        for (const question of section.questions) {
+                            for (const subq of question.subQuestions) {
+                                if (subq.answerBool === null) {
+                                    retBool = false;
+                                    break;
+                                }
+                            }
+                            if (retBool === false) {
+                                break;
+                            }
+                        }
+                        if (retBool === false) {
+                            break;
+                        }
+                    }
+                    return retBool;
+                }
+            },
+            methods: {
+                scrollToTop() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                        window.requestAnimationFrame(this.scrollToTop);
+                        window.scrollTo(0, c - c / 8);
+                    }
+                }
+            },
         })
     </script>
 </body>
