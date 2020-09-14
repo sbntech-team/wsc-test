@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WSC TEST</title>
 
     <script src="./questions.js" type="text/javascript"></script>
@@ -13,123 +12,152 @@
     <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <main id="app">
-        <section class="section">
-            <form class="container">
-                <h1 class="title">Workplace Safety Inspection Checklist</h1>
-                <br />
-                <b-steps v-model="activeStep" mobile-mode="compact" @input="scrollToTop">
-                    <b-step-item :step="index + 1" :label="section.name" clickable v-for="(section, index) in questions"
-                        :key="index">
-                        <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
-                            <div class="card-content">
-                                <p class="has-text-weight-bold">{{`${question.letter})  ${question.name}`}}</p>
-                                <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
-                                    :key="sindex">
-                                    <p v-if="question.subQuestions.length > 1">
-                                        {{`${sindex+1}${question.letter}) ${subq.qn}`}}
-                                    </p>
-                                    <div class="block">
-                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
-                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
-                                    </div>
-                                    <b-field label="Recommendation/Corrective Actions">
-                                        <b-input v-model="subq.actions"></b-input>
-                                    </b-field>
-                                    <b-field label="Action By">
-                                        <b-input v-model="subq.by"></b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-                        </div>
-                    </b-step-item>
-                </b-steps>
-                <br />
-                <b-button type="is-success" expanded v-if="canSubmit">Submit</b-button>
-            </form>
-        </section>
+      <section class="section">
+        <form class="container">
+          <h1 class="title">Workplace Safety Inspection Checklist</h1>
+          <br />
+          <b-steps
+            v-model="activeStep"
+            mobile-mode="compact"
+            @input="scrollToTop"
+          >
+            <b-step-item
+              :step="index + 1"
+              :label="section.name"
+              clickable
+              v-for="(section, index) in questions"
+              :key="index"
+            >
+              <div
+                class="card mb-4"
+                v-for="(question, qindex) in section.questions"
+                :key="qindex"
+              >
+                <div class="card-content">
+                  <p class="has-text-weight-bold">
+                    {{`${question.letter}) ${question.name}`}}
+                  </p>
+                  <div
+                    class="container pt-4"
+                    v-for="(subq, sindex) in question.subQuestions"
+                    :key="sindex"
+                  >
+                    <p v-if="question.subQuestions.length > 1">
+                      {{`${sindex+1}${question.letter}) ${subq.qn}`}}
+                    </p>
+                    <div class="block">
+                      <b-radio v-model="subq.answerBool" :native-value="true"
+                        >Yes</b-radio
+                      >
+                      <b-radio v-model="subq.answerBool" :native-value="false"
+                        >No</b-radio
+                      >
+                    </div>
+                    <b-field label="Recommendation/Corrective Actions">
+                      <b-input v-model="subq.actions"></b-input>
+                    </b-field>
+                    <b-field label="Action By">
+                      <b-input v-model="subq.by"></b-input>
+                    </b-field>
+                  </div>
+                </div>
+              </div>
+            </b-step-item>
+          </b-steps>
+          <br />
+          <b-button type="is-success" expanded v-if="canSubmit"
+            >Submit</b-button
+          >
+        </form>
+      </section>
     </main>
     <script src="./init-firebase.js" type="text/javascript"></script>
     <script>
-        new Vue({
-            el: "#app",
-            data() {
-                return {
-                    activeStep: 0,
-                    questions: questionsObj
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            activeStep: 0,
+            questions: questionsObj,
+          };
+        },
+        computed: {
+          canSubmit() {
+            let retBool = true;
+            for (const section of this.questions) {
+              for (const question of section.questions) {
+                for (const subq of question.subQuestions) {
+                  if (subq.answerBool === null) {
+                    retBool = false;
+                    break;
+                  }
                 }
-            },
-            computed: {
-                canSubmit() {
-                    let retBool = true;
-                    for (const section of this.questions) {
-                        for (const question of section.questions) {
-                            for (const subq of question.subQuestions) {
-                                if (subq.answerBool === null) {
-                                    retBool = false;
-                                    break;
-                                }
-                            }
-                            if (retBool === false) {
-                                break;
-                            }
-                        }
-                        if (retBool === false) {
-                            break;
-                        }
-                    }
-                    return retBool;
+                if (retBool === false) {
+                  break;
                 }
-            },
-            methods: {
-                scrollToTop() {
-                    const c = document.documentElement.scrollTop || document.body.scrollTop;
-                    if (c > 0) {
-                        window.requestAnimationFrame(this.scrollToTop);
-                        window.scrollTo(0, c - c / 8);
-                    }
-                },
-                read() {
-                    const data = [];
-                        db.collection("formData")
-                        .get()
-                        .then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                        data.push(doc);
-                        console.log(doc.id, " => ", doc.data());
-                        });
-                        return data;
-                        })
-                        .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                        });
-                },
-                add() {
-                    const currentDate = dayjs(new Date().toLocaleString("en-US", {
-                        timeZone: "Asia/Singapore"
-                    })).format('YYYY-MM-DD HH:mm:ss');
+              }
+              if (retBool === false) {
+                break;
+              }
+            }
+            return retBool;
+          },
+        },
+        methods: {
+          scrollToTop() {
+            const c =
+              document.documentElement.scrollTop || document.body.scrollTop;
+            if (c > 0) {
+              window.requestAnimationFrame(this.scrollToTop);
+              window.scrollTo(0, c - c / 8);
+            }
+          },
+          read() {
+            const data = [];
+            db.collection("formData")
+              .get()
+              .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                  data.push(doc);
+                  console.log(doc.id, " => ", doc.data());
+                });
+                return data;
+              })
+              .catch((error) => {
+                console.log("Error getting documents: ", error);
+              });
+          },
+          add() {
+            const currentDate = dayjs(
+              new Date().toLocaleString("en-US", {
+                timeZone: "Asia/Singapore",
+              })
+            ).format("YYYY-MM-DD HH:mm:ss");
 
-                    db.collection(`formData`).doc(currentDate)
-                    .set({currentDate:questionsObj})
-                    .then(() => {
-                        console.log("Success");
-                    })
-                    .catch((error) => {
-                        console.error("Error writing document: ", error);
-                    });
-                }
-            },
-            beforeMount(){
-                this.read();
-            },
-        })
+            db.collection(`formData`)
+              .doc(currentDate)
+              .set({ currentDate: questionsObj })
+              .then(() => {
+                console.log("Success");
+              })
+              .catch((error) => {
+                console.error("Error writing document: ", error);
+              });
+          },
+        },
+        beforeMount() {
+          this.read();
+        },
+      });
     </script>
-    
-</body>
-
+  </body>
 </html>
