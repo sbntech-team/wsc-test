@@ -23,43 +23,6 @@
             <form class="container">
                 <h1 class="title">Workplace Safety Inspection Checklist</h1>
                 <br />
-                <!-- <b-collapse class="card" animation="slide" v-for="(section, index) in questions" :key="index"
-                    :open="isOpen == index" @open="isOpen = index">
-                    <div slot="trigger" slot-scope="props" class="card-header" role="button">
-                        <p class="card-header-title">
-                            {{ section.name }}
-                        </p>
-                        <a class="card-header-icon">
-                            <b-icon :icon="props.open ? 'menu-down' : 'menu-up'">
-                            </b-icon>
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
-                                <div class="card-content">
-                                    <p class="has-text-weight-bold">{{`${question.letter})  ${question.name}`}}</p>
-                                    <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
-                                        :key="sindex">
-                                        <p v-if="question.subQuestions.length > 1">
-                                            {{`${sindex+1}${question.letter}) ${subq.qn}`}}
-                                        </p>
-                                        <div class="block">
-                                            <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
-                                            <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
-                                        </div>
-                                        <b-field label="Recommendation/Corrective Actions">
-                                            <b-input v-model="subq.actions"></b-input>
-                                        </b-field>
-                                        <b-field label="Action By">
-                                            <b-input v-model="subq.by"></b-input>
-                                        </b-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </b-collapse> -->
                 <b-steps v-model="activeStep" mobile-mode="compact" @input="scrollToTop">
                     <b-step-item :step="index + 1" :label="section.name" clickable v-for="(section, index) in questions"
                         :key="index">
