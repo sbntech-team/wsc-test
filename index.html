@@ -136,21 +136,6 @@
               window.scrollTo(0, c - c / 8);
             }
           },
-          read() {
-            const data = [];
-            db.collection("formData")
-              .get()
-              .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                  data.push(doc);
-                  console.log(doc.id, " => ", doc.data());
-                });
-                return data;
-              })
-              .catch((error) => {
-                console.log("Error getting documents: ", error);
-              });
-          },
           add() {
             const currentDate = dayjs(
               new Date().toLocaleString("en-US", {
@@ -161,9 +146,7 @@
             db.collection(`formData`)
               .doc(currentDate)
               .set({
-                location: this.location,
-                block: this.block,
-                unit: this.unit,
+                location: `${this.location} ${this.block} ${this.unit}`,
                 questions: questionsObj,
               })
               .then(() => {
@@ -173,9 +156,6 @@
                 console.error("Error writing document: ", error);
               });
           },
-        },
-        beforeMount() {
-          this.read();
         },
       });
     </script>
