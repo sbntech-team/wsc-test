@@ -22,9 +22,18 @@
   <body>
     <main id="app">
       <section class="section">
-        <form class="container">
+        <form class="container" @submit.prevent="add">
           <h1 class="title">Workplace Safety Inspection Checklist</h1>
           <br />
+          <b-field label="Location">
+            <b-input v-model="location"></b-input>
+          </b-field>
+          <b-field label="Block">
+            <b-input v-model="block"></b-input>
+          </b-field>
+          <b-field label="Unit">
+            <b-input v-model="unit"></b-input>
+          </b-field>
           <b-steps
             v-model="activeStep"
             mobile-mode="compact"
@@ -77,6 +86,9 @@
           <b-button type="is-success" expanded v-if="canSubmit">
             Submit
           </b-button>
+          <!-- <b-button type="is-success" expanded native-type="submit">
+            Submit
+          </b-button> -->
         </form>
       </section>
     </main>
@@ -88,6 +100,9 @@
           return {
             activeStep: 0,
             questions: questionsObj,
+            location: null,
+            block: null,
+            unit: null,
           };
         },
         computed: {
@@ -145,7 +160,12 @@
 
             db.collection(`formData`)
               .doc(currentDate)
-              .set({ currentDate: questionsObj })
+              .set({
+                location: this.location,
+                block: this.block,
+                unit: this.unit,
+                questions: questionsObj,
+              })
               .then(() => {
                 console.log("Success");
               })
