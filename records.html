@@ -62,9 +62,19 @@
                 <p class="card-header-title">{{section.name}}</p>
               </header>
               <div class="card-content">
-                <div v-for="question in section.questions">
+                <div class="mb-6" v-for="question in section.questions">
                   <h3 class="title is-5">{{question.name}}</h3>
-                  
+                  <div class="box" v-for="subq in question.subQuestions">
+                    <h4 class="subtitle">{{subq.qn}}</h4>
+                    <p class="has-text-weight-bold is-size-6">Answer:</p>
+                    <p>{{subq.answerBool}}</p>
+                    <p class="has-text-weight-bold is-size-6">
+                      Recommendation/Corrective Actions:
+                    </p>
+                    <p>{{subq.actions}}</p>
+                    <p class="has-text-weight-bold is-size-6">Action By:</p>
+                    <p>{{subq.by}}</p>
+                  </div>
                 </div>
               </div>
             </div>
