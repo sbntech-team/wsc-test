@@ -32,8 +32,15 @@
                 <b-field label="Unit">
                     <b-input v-model="unit"></b-input>
                 </b-field>
-                <b-field label="By:">
+                <b-field label="By">
                     <b-input v-model="by"></b-input>
+                </b-field>
+                <b-field label="Section">
+                    <b-select v-model="selectedSection" expanded>
+                        <option :value="section" v-for="(section, index) in questions" :key="index">
+                            {{section.name}}
+                        </option>
+                    </b-select>
                 </b-field>
                 <b-steps v-model="activeStep" mobile-mode="compact" @input="scrollToTop">
                     <b-step-item :step="index + 1" :label="section.name" clickable v-for="(section, index) in questions"
@@ -84,6 +91,7 @@
                     block: null,
                     unit: null,
                     by: null,
+                    selectedSection: null,
                 };
             },
             computed: {
