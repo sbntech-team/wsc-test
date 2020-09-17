@@ -82,7 +82,7 @@
             data() {
                 return {
                     activeStep: 0,
-                    questions: questionsObj,
+                    questions: JSON.parse(JSON.stringify(questionsObj)),
                     location: null,
                     block: null,
                     unit: null,
@@ -111,14 +111,6 @@
                 },
             },
             methods: {
-                scrollToTop() {
-                    const c =
-                        document.documentElement.scrollTop || document.body.scrollTop;
-                    if (c > 0) {
-                        window.requestAnimationFrame(this.scrollToTop);
-                        window.scrollTo(0, c - c / 8);
-                    }
-                },
                 add() {
                     const currentDate = dayjs(
                         new Date().toLocaleString("en-US", {
@@ -131,13 +123,20 @@
                         .set({
                             location: `${this.location} ${this.block} ${this.unit}`,
                             submittedBy: this.by,
+                            section: this.selectedSection.name,
                             questions: this.selectedSection,
                         })
                         .then(() => {
-                            console.log("Success");
+                            this.location = null;
+                            this.block = null;
+                            this.unit = null;
+                            this.by = null;
+                            this.selectedSection = null;
+                            this.questions = JSON.parse(JSON.stringify(questionsObj));
+                            this.$buefy.snackbar.open("Successfully Submitted!")
                         })
                         .catch((error) => {
-                            console.error("Error writing document: ", error);
+                            this.$buefy.snackbar.open(`Error submitting: ${error}`)
                         });
                 },
             },

@@ -27,8 +27,17 @@
             </option>
           </b-select>
         </b-field>
+        <b-field label="Select Form Type">
+          <b-select v-model="selectedForm" placeholder="Select a form type" expanded
+            :disabled="selectedLocation === null">
+            <option v-for="(form, index) in forms" :value="form" :key="index">
+              {{ form }}
+            </option>
+          </b-select>
+        </b-field>
         <b-field label="Select Date">
-          <b-select v-model="selectedRecord" placeholder="Select a date" expanded>
+          <b-select v-model="selectedRecord" placeholder="Select a date" expanded
+            :disabled="filteredRecords.length === 0">
             <option v-for="record in filteredRecords" :value="record" :key="record.id">
               {{ record.id }}
             </option>
@@ -67,15 +76,24 @@
         return {
           recordArr: [],
           locations: [],
+          forms: [],
           selectedRecord: null,
           selectedLocation: null,
+          selectedForm: null
         };
       },
       computed: {
-        filteredRecords() {
+        filteredRecordsByLocation() {
           retArr = [];
           retArr = this.recordArr.filter((record) => {
             return record.data.location === this.selectedLocation;
+          });
+          return retArr;
+        },
+        filteredRecords() {
+          retArr = [];
+          retArr = this.filteredRecordsByLocation.filter((record) => {
+            return record.data.section === this.selectedForm;
           });
           return retArr;
         },
@@ -87,6 +105,7 @@
         async read() {
           try {
             const uniqueLocs = new Set()
+            const uniqueForms = new Set()
             const res = await db.collection("formData").get();
             for (const doc of res.docs) {
               this.recordArr.push({
@@ -94,8 +113,10 @@
                 data: doc.data()
               });
               uniqueLocs.add(doc.data().location)
+              uniqueForms.add(doc.data().section)
             }
             this.locations = [...uniqueLocs];
+            this.forms = [...uniqueForms];
           } catch (error) {
             console.log("Error getting documents: ", error);
           }
