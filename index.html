@@ -48,10 +48,12 @@
                                     <p v-if="question.subQuestions.length > 1">
                                         {{`${sindex+1}${question.letter}) ${subq.qn}`}}
                                     </p>
-                                    <div class="block">
-                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
-                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
-                                    </div>
+                                    <b-field class="pt-4">
+                                        <div class="block">
+                                            <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
+                                            <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                                        </div>
+                                    </b-field>
                                     <b-field label="Recommendation/Corrective Actions">
                                         <b-input v-model="subq.actions"></b-input>
                                     </b-field>
