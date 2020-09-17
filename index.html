@@ -24,16 +24,16 @@
                 <h1 class="title">Workplace Safety Inspection Checklist</h1>
                 <br />
                 <b-field label="Location">
-                    <b-input v-model="location"></b-input>
+                    <b-input v-model="location" required></b-input>
                 </b-field>
                 <b-field label="Block">
-                    <b-input v-model="block"></b-input>
+                    <b-input v-model="block" required></b-input>
                 </b-field>
                 <b-field label="Unit">
-                    <b-input v-model="unit"></b-input>
+                    <b-input v-model="unit" required></b-input>
                 </b-field>
                 <b-field label="By">
-                    <b-input v-model="by"></b-input>
+                    <b-input v-model="by" required></b-input>
                 </b-field>
                 <b-field label="Section">
                     <b-select v-model="selectedSection" expanded>
@@ -42,35 +42,31 @@
                         </option>
                     </b-select>
                 </b-field>
-                <b-steps v-model="activeStep" mobile-mode="compact" @input="scrollToTop">
-                    <b-step-item :step="index + 1" :label="section.name" clickable v-for="(section, index) in questions"
-                        :key="index">
-                        <div class="card mb-4" v-for="(question, qindex) in section.questions" :key="qindex">
-                            <div class="card-content">
-                                <p class="has-text-weight-bold">
-                                    {{`${question.letter}) ${question.name}`}}
+                <div v-if="selectedSection">
+                    <div class="card mb-4" v-for="(question, qindex) in selectedSection.questions" :key="qindex">
+                        <div class="card-content">
+                            <p class="has-text-weight-bold">
+                                {{`${question.letter}) ${question.name}`}}
+                            </p>
+                            <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions" :key="sindex">
+                                <p v-if="question.subQuestions.length > 1">
+                                    {{`${sindex+1}${question.letter}) ${subq.qn}`}}
                                 </p>
-                                <div class="container pt-4" v-for="(subq, sindex) in question.subQuestions"
-                                    :key="sindex">
-                                    <p v-if="question.subQuestions.length > 1">
-                                        {{`${sindex+1}${question.letter}) ${subq.qn}`}}
-                                    </p>
-                                    <b-field class="pt-4">
-                                        <div class="block">
-                                            <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
-                                            <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
-                                        </div>
-                                    </b-field>
-                                    <b-field label="Recommendation/Corrective Actions">
-                                        <b-input v-model="subq.actions"></b-input>
-                                    </b-field>
-                                </div>
+                                <b-field class="pt-4">
+                                    <div class="block">
+                                        <b-radio v-model="subq.answerBool" :native-value="true">Yes</b-radio>
+                                        <b-radio v-model="subq.answerBool" :native-value="false">No</b-radio>
+                                    </div>
+                                </b-field>
+                                <b-field label="Recommendation/Corrective Actions">
+                                    <b-input v-model="subq.actions"></b-input>
+                                </b-field>
                             </div>
                         </div>
-                    </b-step-item>
-                </b-steps>
+                    </div>
+                </div>
                 <br />
-                <b-button type="is-success" expanded v-if="canSubmit">
+                <b-button type="is-success" expanded native-type="submit" :disabled="!canSubmit">
                     Submit
                 </b-button>
                 <!-- <b-button type="is-success" expanded native-type="submit">
@@ -97,8 +93,8 @@
             computed: {
                 canSubmit() {
                     let retBool = true;
-                    for (const section of this.questions) {
-                        for (const question of section.questions) {
+                    if (this.selectedSection) {
+                        for (const question of this.selectedSection.questions) {
                             for (const subq of question.subQuestions) {
                                 if (subq.answerBool === null) {
                                     retBool = false;
@@ -109,11 +105,9 @@
                                 break;
                             }
                         }
-                        if (retBool === false) {
-                            break;
-                        }
+                        return retBool;
                     }
-                    return retBool;
+                    return false;
                 },
             },
             methods: {
@@ -136,7 +130,8 @@
                         .doc(currentDate)
                         .set({
                             location: `${this.location} ${this.block} ${this.unit}`,
-                            questions: questionsObj,
+                            submittedBy: this.by,
+                            questions: this.selectedSection,
                         })
                         .then(() => {
                             console.log("Success");
