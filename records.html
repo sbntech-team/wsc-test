@@ -10,6 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
 
   <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css" />
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css" />
@@ -44,10 +45,15 @@
           </b-select>
         </b-field>
         <div v-if="selectedRecord">
-          <p class="subtitle">Submitted By: {{selectedRecord.data.submittedBy}}</p>
+          <b-button type="is-success" @click="generateCSV" expanded>GENERATE</b-button>
+          <p class="subtitle">
+            Submitted By: {{selectedRecord.data.submittedBy}}
+          </p>
           <div class="card mb-4">
             <header class="card-header">
-              <p class="card-header-title">{{selectedRecord.data.questions.name}}</p>
+              <p class="card-header-title">
+                {{selectedRecord.data.questions.name}}
+              </p>
             </header>
             <div class="card-content">
               <div class="mb-6" v-for="question in selectedRecord.data.questions.questions">
@@ -79,7 +85,7 @@
           forms: [],
           selectedRecord: null,
           selectedLocation: null,
-          selectedForm: null
+          selectedForm: null,
         };
       },
       computed: {
@@ -104,21 +110,58 @@
       methods: {
         async read() {
           try {
-            const uniqueLocs = new Set()
-            const uniqueForms = new Set()
+            const uniqueLocs = new Set();
+            const uniqueForms = new Set();
             const res = await db.collection("formData").get();
             for (const doc of res.docs) {
               this.recordArr.push({
                 id: doc.id,
-                data: doc.data()
+                data: doc.data(),
               });
-              uniqueLocs.add(doc.data().location)
-              uniqueForms.add(doc.data().section)
+              uniqueLocs.add(doc.data().location);
+              uniqueForms.add(doc.data().section);
             }
             this.locations = [...uniqueLocs];
             this.forms = [...uniqueForms];
           } catch (error) {
             console.log("Error getting documents: ", error);
+          }
+        },
+        generateCSV() {
+          const selectedRecordObj = Object.assign({},
+            this.selectedRecord.data
+          );
+          const tmpObject = {};
+          let generatedCSV = ""
+          for (const mainQn of selectedRecordObj.questions.questions) {
+            generatedCSV += `"${mainQn.name}"\n`
+            for (const subQn of mainQn.subQuestions) {
+              generatedCSV +=
+                `Question: "${subQn.qn}"\nActions: "${subQn.actions}"\nAnswer: ${subQn.answerBool}\n`
+            }
+          }
+          const title =
+            `Section: ${selectedRecordObj.section},Location: ${selectedRecordObj.location},Submitted By: ${selectedRecordObj.submittedBy} \n` +
+            generatedCSV;
+          const blob = new Blob([title], {
+            type: "text/csv;charset=utf-8;"
+          });
+          if (navigator.msSaveBlob) {
+            // IE 10+
+            navigator.msSaveBlob(blob, filename);
+          } else {
+            const link = document.createElement("a");
+            if (link.download !== undefined) {
+              // feature detection
+              // Browsers that support HTML5 download attribute
+              const url = URL.createObjectURL(blob);
+              link.setAttribute("href", url);
+              link.setAttribute("download", "wsc.csv");
+              link.style.visibility = "hidden";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
           }
         },
       },
