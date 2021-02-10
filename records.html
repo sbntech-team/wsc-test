@@ -136,12 +136,17 @@
           for (const mainQn of selectedRecordObj.questions.questions) {
             generatedCSV += `"${mainQn.name}"\n`
             for (const subQn of mainQn.subQuestions) {
+              generatedCSV += "Question,Actions,Answer\n"
               generatedCSV +=
-                `Question: "${subQn.qn}"\nActions: "${subQn.actions}"\nAnswer: ${subQn.answerBool}\n`
+                `"${subQn.qn}",`
+              generatedCSV +=
+                `"${subQn.actions}",`
+              generatedCSV +=
+                `${subQn.answerBool}\n`
             }
           }
           const title =
-            `Section: ${selectedRecordObj.section},Location: ${selectedRecordObj.location},Submitted By: ${selectedRecordObj.submittedBy} \n` +
+            `Section: ${selectedRecordObj.section},Location: "${selectedRecordObj.location}",By: ${selectedRecordObj.submittedBy}\n` +
             generatedCSV;
           const blob = new Blob([title], {
             type: "text/csv;charset=utf-8;"
