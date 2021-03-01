@@ -121,7 +121,7 @@
               uniqueLocs.add(doc.data().location);
               uniqueForms.add(doc.data().section);
             }
-            this.locations = [...uniqueLocs];
+            this.locations = [...uniqueLocs].reverse();
             this.forms = [...uniqueForms];
           } catch (error) {
             console.log("Error getting documents: ", error);
